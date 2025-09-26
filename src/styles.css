@@ -1,0 +1,513 @@
+/* ---------- Мой дизайн ---------- */
+:root {
+    --radius-xl: 16px;
+    --radius: 12px;
+    --radius-sm: 10px;
+    --pad: 12px;
+    --brand: #7c5cff;
+    --brand-2: #24c8a5;
+    --danger: #ff5c7a;
+}
+
+/* Светлая тема */
+:root[data-theme="light"] {
+    --bg: #f6f7fb;
+    --elev: #ffffff;
+    --text: #0f1222;
+    --muted: #606575;
+    --border: rgba(0, 0, 0, .08);
+    --shadow: 0 8px 26px rgba(17, 22, 44, .08);
+}
+
+/* Темная тема */
+:root[data-theme="dark"] {
+    --bg: #0b0b0c;
+    --elev: #121316;
+    --text: #e9e9ee;
+    --muted: #a6a8b3;
+    --border: rgba(255, 255, 255, .08);
+    --shadow: 0 6px 24px rgba(0, 0, 0, .35), 0 1px 0 rgba(255, 255, 255, .04) inset;
+}
+
+@media (prefers-color-scheme: light) {
+    :root {
+        --bg: #f6f7fb;
+        --elev: #ffffff;
+        --text: #0f1222;
+        --muted: #606575;
+        --border: rgba(0, 0, 0, .08);
+        --shadow: 0 8px 26px rgba(17, 22, 44, .08);
+    }
+}
+
+* {
+    box-sizing: border-box
+}
+
+html,
+body,
+#root {
+    height: 100%
+}
+
+body {
+    margin: 0;
+    font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+    color: var(--text);
+    background: var(--bg);
+}
+
+/* ---------- Слои ---------- */
+.container {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 24px 20px;
+}
+
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    backdrop-filter: saturate(140%) blur(10px);
+    background: linear-gradient(180deg, rgba(0, 0, 0, .35), rgba(0, 0, 0, 0));
+    border-bottom: 1px solid var(--border);
+}
+
+.header-inner {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 20px;
+    max-width: 1080px;
+    margin: 0 auto;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: var(--text);
+    font-weight: 700;
+    letter-spacing: .2px;
+}
+
+.brand-badge {
+    width: 28px;
+    height: 28px;
+    border-radius: 10px;
+    display: grid;
+    place-items: center;
+    background: linear-gradient(135deg, var(--brand), var(--brand-2));
+    color: white;
+    font-size: 14px;
+    box-shadow: var(--shadow);
+}
+
+/* ---------- Эллементы управления ---------- */
+.input {
+    flex: 1;
+    min-width: 220px;
+    background: var(--elev);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 12px 14px;
+    outline: none;
+    transition: border-color .2s, box-shadow .2s, transform .05s;
+}
+
+.input:focus {
+    border-color: rgba(124, 92, 255, .6);
+    box-shadow: 0 0 0 4px rgba(124, 92, 255, .12);
+}
+
+.btn {
+    appearance: none;
+    border: 1px solid var(--border);
+    background: linear-gradient(135deg, rgba(124, 92, 255, .2), rgba(36, 200, 165, .2));
+    color: var(--text);
+    padding: 10px 14px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: transform .06s ease, filter .2s ease, box-shadow .2s;
+    box-shadow: var(--shadow);
+}
+
+.btn:hover {
+    filter: brightness(1.05)
+}
+
+.btn:active {
+    transform: translateY(1px)
+}
+
+.btn.secondary {
+    background: var(--elev)
+}
+
+.btn.danger {
+    background: linear-gradient(135deg, rgba(255, 92, 122, .25), rgba(255, 92, 122, .15));
+}
+
+.meta {
+    font-size: 12px;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.theme-switch {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    background: var(--elev);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 4px;
+    box-shadow: var(--shadow);
+}
+
+.theme-switch button {
+    border: 0;
+    background: transparent;
+    color: var(--muted);
+    padding: 6px 10px;
+    border-radius: 999px;
+    cursor: pointer;
+}
+
+.theme-switch button.active {
+    color: var(--text);
+    background: linear-gradient(135deg, rgba(124, 92, 255, .18), rgba(36, 200, 165, .12));
+}
+
+/* ---------- Сетка и карточки ---------- */
+.grid {
+    display: grid;
+    gap: 14px;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+}
+
+.card {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: linear-gradient(180deg, rgba(255, 255, 255, .02), rgba(255, 255, 255, 0));
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow);
+    transition: transform .18s ease, box-shadow .2s ease, border-color .2s ease;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(124, 92, 255, .45);
+    box-shadow: 0 14px 30px rgba(0, 0, 0, .35);
+}
+
+.card img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    display: block;
+}
+
+.card-overlay {
+    position: absolute;
+    inset: 0;
+    padding: 10px 12px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    background: linear-gradient(180deg, rgba(18, 19, 22, 0) 60%, rgba(18, 19, 22, .8) 100%);
+    color: #fff;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity .25s;
+}
+
+.card:hover .card-overlay {
+    opacity: 1;
+}
+
+.card-overlay a,
+.card-overlay button {
+    pointer-events: auto;
+}
+
+.card>a {
+    display: block;
+}
+
+.author {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-width: 0;
+    text-decoration: none;
+    color: #fff;
+    font-size: 13px;
+}
+
+.author img {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid rgba(255, 255, 255, .35)
+}
+
+.author span {
+    display: block;
+    max-width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.like {
+    margin-left: auto;
+    white-space: nowrap;
+    opacity: 13px;
+}
+
+/* ---------- Детали ---------- */
+.details {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: 1.2fr .8fr;
+}
+
+@media (max-width: 880px) {
+    .details {
+        grid-template-columns: 1fr;
+    }
+}
+
+.details-media {
+    background: var(--elev);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    display: grid;
+    place-items: center;
+    padding: 12px;
+    box-shadow: var(--shadow);
+}
+
+.details-media img {
+    width: 100%;
+    max-height: 70vh;
+    object-fit: contain;
+    border-radius: 12px;
+}
+
+.panel {
+    background: var(--elev);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    padding: 16px;
+    box-shadow: var(--shadow);
+}
+
+.kv {
+    display: grid;
+    gap: 10px;
+    font-size: 14px;
+    color: var(--muted);
+}
+
+.kv b {
+    color: var(--text);
+}
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.tag {
+    padding: 6px 10px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: linear-gradient(135deg, rgba(124, 92, 255, .18), rgba(36, 200, 165, .12));
+    color: var(--text);
+    font-size: 12px;
+}
+
+/* ---------- Пагинация ---------- */
+.pager {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.pager .info {
+    font-size: 12px;
+    color: var(--muted);
+}
+
+/* ---------- Колонки ---------- */
+.masonry {
+    column-count: 4;
+    column-gap: 16px;
+}
+
+@media (max-width: 1200px) {
+    .masonry {
+        column-count: 3;
+    }
+}
+
+@media (max-width: 900px) {
+    .masonry {
+        column-count: 2;
+    }
+}
+
+@media (max-width: 560px) {
+    .masonry {
+        column-count: 1;
+    }
+}
+
+.masonry-item {
+    break-inside: avoid;
+    margin-bottom: 16px;
+}
+
+.card {
+    border-radius: 14px;
+}
+
+/* Скрытый sentinel для IntersectionObserver */
+.sentinel {
+    height: 1px;
+}
+
+/* ---------- ImageDetails: правая «карточка» как у Pixabay ---------- */
+.details-aside {
+    position: sticky;
+    top: 84px;
+    display: grid;
+    gap: 14px;
+}
+
+/* строка лицензии */
+.licence-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--elev);
+    box-shadow: var(--shadow);
+}
+
+.check-pill {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: linear-gradient(135deg, rgba(124, 92, 255, .25), rgba(36, 200, 165, .2));
+}
+
+.licence-text a {
+    color: var(--text);
+    text-decoration: underline;
+}
+
+/* кнопки edit/download */
+.btn-row {
+    display: flex;
+    gap: 10px;
+}
+
+/* action bar (лайк/сохранить/поделиться) */
+.action-bar {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.chip {
+    border: 1px solid var(--border);
+    background: var(--elev);
+    padding: 8px 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    color: var(--text);
+}
+
+/* метрики */
+.stat-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.stat {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 10px 12px;
+    background: var(--elev);
+}
+
+.stat-label {
+    font-size: 12px;
+    color: var(--muted);
+}
+
+.stat-value {
+    font-weight: 700;
+}
+
+.author-card {
+    display: grid;
+    grid-template-columns: 44px 1fr auto;
+    gap: 10px;
+    align-items: center;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 10px 12px;
+    background: var(--elev);
+    box-shadow: var(--shadow);
+}
+
+.author-card img {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid var(--border);
+}
+
+.author-name {
+    color: var(--text);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.follow-btn {
+    padding: 8px 12px;
+}
+
+.details-media {
+    padding: 0;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+.details-media img {
+    border-radius: 8px;
+    background: var(--elev);
+    border: 1px solid var(--border);
+    padding: 8px;
+}
